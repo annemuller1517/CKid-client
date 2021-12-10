@@ -9,6 +9,7 @@ import {useNavigate } from 'react-router-dom'
 import axios from "axios";
 import Search from "./components/Search";
 import Country from "./components/Country";
+import AddWord from "./components/AddWord";
 
 function App() {
 
@@ -45,9 +46,9 @@ function App() {
 
   }, [])
 
-  useEffect(() => {
-    navigate('/')
-  }, [user])
+  // useEffect(() => {
+  //   navigate('/')
+  // }, [user])
 
 
 
@@ -65,6 +66,7 @@ const handleSigIn = async (event) =>{
     // just set it to true for all the axios requests
     let repsonse = await axios.post(`${API_URL}/signin`, user, {withCredentials: true})
     setUser(repsonse.data)
+    navigate("/")
   }
   catch(err){
     setError(err.response.data.error)
@@ -77,6 +79,46 @@ const handleLogout = async () => {
   // dont need to send any data but need the post request send an empty object 
   await axios.post(`${API_URL}/logout`, {}, {withCredentials:true})
   setUser(null)
+}
+
+const handleSearch = async (event) => {
+  event.preventDefault()
+ 
+  let country = event.target.country.value
+  let city = event.target.city.value
+
+  let response = await axios.get(`https://nominatim.openstreetmap.org/search/${city}?format=json&addressdetails=1&limit=1&polygon_svg=1`)
+  console.log("response", response.data)
+  let data = response.data[0]
+
+  let destination = {
+    country: event.target.country.value,
+    city: event.target.city.value,
+    lat: data.lat,
+    lon: data.lon,
+  }
+  console.log(data.lat)
+  console.log(data.lon)
+
+  try {
+    let try1 = await axios.post(`${API_URL}/country`, destination, {withCredentials: true})
+    console.log(try1)
+  }
+  catch (err){
+    console.log("failed")
+    }
+  
+
+
+  navigate(`${country}/${city}/${data.lat}/${data.lon}`)
+  // console.log("WORKED", lat, lon)
+
+}
+
+const handleSubmit = async (event) => {
+  event.preventDefault()
+  //https://www.youtube.com/watch?v=zgKH12s_95A
+  console.log(event.currentTarget)
 }
 
   if (fetchingUser) {
@@ -92,7 +134,9 @@ const handleLogout = async () => {
           <Route path="/" element={<Search btnSearch={handleSearch} user={user}/> } />
           <Route  path="/signin" element={<SignIn btnSignIn={handleSigIn} myError={error}/>}/>
           <Route  path="/signup" element={<SignUp />}/>
-          <Route path="/country/:lat/:lon" element={<Country city={city} country={country}/>} />
+          <Route path="/:country/:city/:lat/:lon" element={<Country city={city} country={country}/>} />
+          <Route path="/:country/:city/:lat/:lon/list" element={<AddWord btnSubmit={handleSubmit} />}/>
+
       </Routes>
     </div>
   );
