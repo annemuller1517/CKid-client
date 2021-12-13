@@ -5,8 +5,13 @@ import { API_URL } from '../config'
 import Search from "./Search"
 import {useNavigate } from 'react-router-dom'
 import {Link} from  'react-router-dom'
-
-
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { Grid } from '@mui/material'
 
 function Country(props) {
     const navigate = useNavigate()
@@ -37,34 +42,114 @@ function Country(props) {
       }
 
     return (
-        <div>
-            <h1>detail page</h1>
+        <div className="countryInfo">
+
+            <h1>Basic Data</h1>
             {
                 countryData.map((elem) => {
                     return (
+                        
                         <div>
-                        <h2>Country: {elem.name.common}</h2>
-                        <h2>Capital: {elem.capital}</h2>
+                            <Card sx={{ maxWidth: 345 }}>
+                                <CardMedia
+                                    component="img"
+                                    alt="flag"
+                                    height="140"
+                                    image={elem.flags.svg}
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                    {elem.name.common}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    <b>Capital</b> {elem.capital}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    <b>Area</b> {elem.area} km²
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    <b>Population</b> {elem.population}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    <b>Continent</b> {elem.continents}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    <b>Currency</b> 
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Link size="small" to={elem.maps.googleMaps}>GoogleMaps</Link>
+                                    <Link size="small" to={elem.maps.openStreetMaps}>OpenStreetMaps</Link>
+                                </CardActions>
+                            </Card>
                         </div>
 
                     )
                 })
             }
-        <div>
-            <p>
-            <br/>
-            <h1>Weather data </h1>
-            <h2>Temp: {cityData.main.temp}</h2>
-            <h2>Feels like: {cityData.main.feels_like}</h2>
-                {
-                    cityData.weather.map((elem)=> {
-                        return (
-                            <div>Main: {elem.main}</div>
-                        )
-                    })
-                }
-            </p>
+                        <div>
+                        <div></div>
+                        <hr/>
+                        <h1>Weather Of Today</h1>
+                        <Card sx={{ maxWidth: 345 }}>
+                                <CardMedia
+                                    component="img"
+                                    alt="flag"
+                                    height="140"
+                                    image=""
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                    {cityData.name}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    <b>Temperature</b> {cityData.main.temp} °C
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    <b>Feels like</b> {cityData.main.feels_like} °C
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    <b>Humidity</b> {cityData.main.humidity}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    <b>Description</b> f
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    <b>Currency</b> 
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                </CardActions>
+                            </Card>
         </div>
+
+        <hr/>
+        <h1>Start Learning</h1>
+                            <Card sx={{ maxWidth: 345 }}>
+
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                    <img src="/idea.png" alt="idea" height="40px"></img>Create
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    Create new words everyday to learn. 
+                                    </Typography>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                    <img src="/book.png" alt="idea" height="40px"></img>Learn
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    Start learning and remembering the words. 
+                                    </Typography>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                    <img src="/talking.png" alt="idea" height="40px"></img>Apply
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    Practise your learnings in real-life
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                </CardActions>
+                            </Card>
 
         <div><Link to={`/${country}/${city}/${lat}/${lon}/list`}> Add words to list</Link></div>        
         

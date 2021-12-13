@@ -11,7 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { API_URL } from '../config';
-import { useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router';
+import { useNavigate, Redirect } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,15 +25,16 @@ const useStyles = makeStyles((theme) => ({
     }
   }))
 
-
+  
 function AddWord(props) {
+
+    const navigate = useNavigate()
 
     let {country, city, lat, lon} = useParams()
     const [inputField, setInputField] = useState([
         {id: uuidv4(), word: " ", translation: " "},
     ])
 
-    const [wordList, setWordList] = useState(null)
 
     const handleChangeInput = (id,event) => {
         const newInputFields = inputField.map(i => {
@@ -48,10 +50,12 @@ function AddWord(props) {
     const handleSubmit = async (event) => {
         event.preventDefault()    
 
-        console.log(inputField)
+        // console.log(inputField)
+
         try {
             let response = await axios.post(`${API_URL}/${city}/wordlist`, inputField, {withCredentials: true})
             console.log(response)
+            
         }
         catch (err){
             console.log("failed")

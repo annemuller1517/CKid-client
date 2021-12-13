@@ -14,6 +14,7 @@ return (
 		<Navbar.Toggle  aria-controls="basic-navbar-nav"  />
 		<Navbar.Collapse  id="basic-navbar-nav">
 			<Nav  className="mr-auto">
+                <Link  style={{marginLeft: '10px'}}  to="/">Home</Link>
 				{user ? (
 					<button onClick={onLogout} >Logout</button>
 				) :
