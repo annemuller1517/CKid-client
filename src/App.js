@@ -12,6 +12,9 @@ import Country from "./components/Country";
 import AddWord from "./components/AddWord";
 import Profile from "./components/Profile";
 import Details from "./components/Details"
+import EditWord from "./components/EditWord";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 
 function App() {
 
@@ -99,8 +102,6 @@ const handleSearch = async (event) => {
     lat: data.lat,
     lon: data.lon,
   }
-  console.log(data.lat)
-  console.log(data.lon)
 
   try {
     let try1 = await axios.post(`${API_URL}/country`, destination, {withCredentials: true})
@@ -128,19 +129,20 @@ const handleSubmit = async (event) => {
   }
 
   return (
-    <div>
-    
+    <div className="page" style={{backgroundColor: "#F8F7F3"}}>
+
       <MyNav onLogout={handleLogout} user={user}/>
-      <p>welkom </p>
       <Routes>
           <Route path="/" element={<Search btnSearch={handleSearch} user={user}/> } />
-          <Route  path="/signin" element={<SignIn btnSignIn={handleSigIn} myError={error}/>}/>
+          <Route  path="/signin" element={<SignIn btnSignIn={handleSigIn}/>}/>
           <Route  path="/signup" element={<SignUp />}/>
           <Route path="/:country/:city/:lat/:lon" element={<Country city={city} country={country}/>} />
           <Route path="/:country/:city/:lat/:lon/list" element={<AddWord btnSubmit={handleSubmit} />}/>
           <Route path="/profile" element={<Profile />}/>
           <Route path="/:country/:city/:lat/:lon/details" element={<Details />}/>
+          <Route path="/:country/:city/:lat/:lon/edit" element={<EditWord />}/>
       </Routes>
+
     </div>
   );
 }

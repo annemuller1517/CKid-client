@@ -14,19 +14,29 @@ import {Link} from 'react-router-dom'
 import axios from 'axios';
 import { API_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
+import { useContext} from "react";
+import { UserContext } from "../context/app.context";
+
+
 
 const theme = createTheme();
 
 
 function SignUp(props) {
+    const {error} = useContext(UserContext)
     const navigate = useNavigate()
 
     const handleSignUp = async (event) => {
         event.preventDefault()
+        let formData = new FormData()
+	        formData.append('imageUrl', event.target.image.files[0])
+	        //uploading the image to cloudinary first
+	        let imgResponse = await axios.post(`${API_URL}/upload`, formData)
         let newUser = {
             username: event.target.username.value,
             email: event.target.email.value,
-            password: event.target.password.value
+            password: event.target.password.value,
+            image: imgResponse.data.image 
         }
 
         await axios.post(`${API_URL}/signup`, newUser, {withCredentials: true})
@@ -58,6 +68,8 @@ function SignUp(props) {
                 label="Username"
                 name="username"
                 autoFocus
+                helperText={error ? error : ""}
+                error={error ? true: false}
             />
             <TextField
               margin="normal"
@@ -67,6 +79,8 @@ function SignUp(props) {
               label="Email Address"
               name="email"
               autoComplete="email"
+              helperText={error ? error : ""}
+              error={error ? true: false}
             />
             <TextField
               margin="normal"
@@ -77,6 +91,18 @@ function SignUp(props) {
               type="password"
               id="password"
               autoComplete="current-password"
+              helperText={error ? error : ""}
+              error={error ? true: false}
+            />
+            <TextField
+              margin="normal"
+              fullWidth
+              name="image"
+              label="Profile Image"
+              type="file"
+              id="image"
+              accept="image/png, image/jpg" 
+            //   autoComplete="current-image"
             />
             <Button
               type="submit"

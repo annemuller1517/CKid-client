@@ -13,6 +13,7 @@ import axios from 'axios';
 import { API_URL } from '../config';
 import { Navigate, useParams } from 'react-router';
 import { useNavigate, Redirect } from 'react-router-dom'
+import SendIcon from '@material-ui/icons/Send'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,9 +29,8 @@ const useStyles = makeStyles((theme) => ({
   
 function AddWord(props) {
 
-    const navigate = useNavigate()
-
-    let {country, city, lat, lon} = useParams()
+    const classes = useStyles()
+    let {city} = useParams()
     const [inputField, setInputField] = useState([
         {id: uuidv4(), word: " ", translation: " "},
     ])
@@ -53,8 +53,8 @@ function AddWord(props) {
         // console.log(inputField)
 
         try {
-            let response = await axios.post(`${API_URL}/${city}/wordlist`, inputField, {withCredentials: true})
-            console.log(response)
+            await axios.post(`${API_URL}/${city}/wordlist`, inputField, {withCredentials: true})
+            
             
         }
         catch (err){
@@ -64,7 +64,7 @@ function AddWord(props) {
     }
 
     const handleAddFields = (event) => {
-        setInputField([...inputField, {word: '', translation: ""}])
+        setInputField([...inputField, {id: uuidv4(), word: '', translation: ""}])
     }
 
     const handleRemoveFields = id => {
@@ -73,7 +73,7 @@ function AddWord(props) {
         setInputField(values);
     }
  
-    const classes = useStyles()
+    
 
     return (
         <Container>
@@ -113,7 +113,7 @@ function AddWord(props) {
                     variant="contained" 
                     color="primary" 
                     type="submit" 
-                    endIcon={<Icon>send</Icon>}
+                    endIcon={<SendIcon />}
                     onClick={handleSubmit}
                     >Send</Button>
             </form>

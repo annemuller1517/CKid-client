@@ -8,12 +8,16 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Link} from 'react-router-dom'
+import { useContext} from "react";
+import { UserContext } from "../context/app.context";
+
 
 const theme = createTheme();
 
 function SignIn(props) {
 
-    const {btnSignIn, myError} = props
+    const {btnSignIn} = props
+    const {error} = useContext(UserContext)
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -39,6 +43,8 @@ function SignIn(props) {
               name="email"
               autoComplete="email"
               autoFocus
+              helperText={error ? error : ""}
+              error={error ? true: false}
             />
             <TextField
               margin="normal"
@@ -49,8 +55,8 @@ function SignIn(props) {
               type="password"
               id="password"
               autoComplete="current-password"
-              helperText={myError ? myError : ""}
-              error={myError ? true: false}
+              helperText={error ? error : ""}
+              error={error ? true: false}
             />
             <Button
               type="submit"

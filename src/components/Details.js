@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom"
 import {useEffect, useContext, useState} from "react";
 import axios from 'axios';
 import { API_URL } from '../config';
-
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { LocalDining } from '@material-ui/icons';
 
@@ -12,7 +12,7 @@ function Details() {
 
     const [data, setData] = useState([])
     const [words, setwords] = useState(null)
-    const [wordCard, setwordCard] = useState(false)
+    const [wordCard, setwordCard] = useState(true)
 
     let {country, city, lat, lon} = useParams()
     console.log(country)
@@ -26,7 +26,7 @@ function Details() {
 
         }
         getData()
-    }, [words])
+    }, [])
 
 
 
@@ -44,12 +44,13 @@ function Details() {
         {
             words.map((elem)=> {
                 return (
+                    <div>
                     <Box onClick={handleClick}
                     sx={{
                         width: 200,
                         height: 50,
                         backgroundColor: 'primary.dark',
-                        fontSize: 34, 
+                        fontSize: 24, 
                         fontWeight: 'medium',
                         textAlign: "center",
                         margin:"20px",
@@ -60,10 +61,16 @@ function Details() {
                     },
                         }}
                 >{wordCard ? elem.word : elem.translation}</Box>
+                
+                
+
+                </div>
+
                 )
             })
+            
         }
-
+        <Link to={`/${country}/${city}/${lat}/${lon}/edit`}>Edit words</Link>
         </div>
     )
 }
