@@ -11,6 +11,7 @@ import Search from "./components/Search";
 import Country from "./components/Country";
 import AddWord from "./components/AddWord";
 import Profile from "./components/Profile";
+import Details from "./components/Details"
 
 function App() {
 
@@ -138,6 +139,7 @@ const handleSubmit = async (event) => {
           <Route path="/:country/:city/:lat/:lon" element={<Country city={city} country={country}/>} />
           <Route path="/:country/:city/:lat/:lon/list" element={<AddWord btnSubmit={handleSubmit} />}/>
           <Route path="/profile" element={<Profile />}/>
+          <Route path="/:country/:city/:lat/:lon/details" element={<Details />}/>
       </Routes>
     </div>
   );

@@ -6,9 +6,9 @@ import L from  'leaflet';
 import { Link } from 'react-router-dom';
 
 import  'leaflet/dist/leaflet.css'
-const ironhackLogo = new L.Icon({
-	iconUrl: 'https://i1.wp.com/www.alliron.vc/wp-content/uploads/2018/05/logo-ironhack-1.png',
-	iconSize: [68, 65],
+const pinLogo = new L.Icon({
+	iconUrl: '/pin.png',
+	iconSize: [40, 40],
 });
 
 
@@ -19,9 +19,7 @@ function Profile() {
         const getData = async () => {
            // Fetching info for a single todo  
            let response = await axios.get(`${API_URL}/profile`, {withCredentials: true})
-           console.log(response.data)
            setData(response.data)
-           console.log(response.data)
 
         }
         getData()
@@ -40,7 +38,7 @@ function Profile() {
 
             <h1>Places vistited</h1>
 <MapContainer  
-			style={{width: '800px', height: '330px'}} 
+			style={{width: '500px', height: '330px'}} 
             zoom={1}  
             center={position}
 			scrollWheelZoom={false}>
@@ -51,10 +49,10 @@ function Profile() {
                     {
                     data.map((elem)=> {
                         return (
-                            <Marker icon={ironhackLogo} position={calculatePosition(elem.lat, elem.lon)}>
+                            <Marker icon={pinLogo} position={calculatePosition(elem.lat, elem.lon)}>
 				            <Popup>
                             Click on me <br/>
-					<Link to="/">{elem.city}</Link>
+					<Link to={`/${elem.country}/${elem.city}/${elem.lat}/${elem.lon}/details`}>{elem.city}</Link>
 				</Popup>
 			</Marker>
                         )
