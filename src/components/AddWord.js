@@ -14,6 +14,10 @@ import { API_URL } from '../config';
 import { Navigate, useParams } from 'react-router';
 import { useNavigate, Redirect } from 'react-router-dom'
 import SendIcon from '@material-ui/icons/Send'
+import { useContext} from "react";
+import { UserContext } from "../context/app.context";
+import { Link } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,9 +32,13 @@ const useStyles = makeStyles((theme) => ({
 
   
 function AddWord(props) {
+    const navigate = useNavigate()
+
+
+    const [error, setError] = useState(null)
 
     const classes = useStyles()
-    let {city} = useParams()
+    let {city, country, lat, lon} = useParams()
     const [inputField, setInputField] = useState([
         {id: uuidv4(), word: " ", translation: " "},
     ])
@@ -58,9 +66,10 @@ function AddWord(props) {
             
         }
         catch (err){
-            console.log("failed")
+            console.log("error")
+            setError(err.response.data.error)
             }
-
+            navigate(`/${country}/${city}/${lat}/${lon}/details`)
     }
 
     const handleAddFields = (event) => {
@@ -76,10 +85,10 @@ function AddWord(props) {
     
 
     return (
-        <Container>
+        <Container style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
             <h1>Add new word</h1>
             <form className={classes.root} onSubmit={handleSubmit}>
-            {
+            {   
                 inputField.map((inputField) => (
                     <div key={inputField.id}>
                     <TextField 
@@ -88,6 +97,8 @@ function AddWord(props) {
                     variant="filled"
                     value={inputField.word}
                     onChange={event => handleChangeInput(inputField.id, event)}
+                    helperText={error ? error : ""}
+                    error={error ? true: false}
                     />
                     <TextField 
                     name="translation"
@@ -95,6 +106,8 @@ function AddWord(props) {
                     variant="filled"
                     value={inputField.translation}
                     onChange={event => handleChangeInput(inputField.id, event)}
+                    helperText={error ? error : ""}
+                    error={error ? true: false}
                     />
                     <IconButton disabled={inputField.length === 1} onClick={() => handleRemoveFields(inputField.id)}>
                         <RemoveIcon />
@@ -116,6 +129,7 @@ function AddWord(props) {
                     endIcon={<SendIcon />}
                     onClick={handleSubmit}
                     >Send</Button>
+                    <Link to={`/https://translate.google.com/`} >Forgot the translation? click here</Link>
             </form>
         </Container>
     )

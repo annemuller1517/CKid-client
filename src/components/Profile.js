@@ -1,94 +1,132 @@
-import React, {useEffect, useState} from 'react'
-import axios from 'axios'
-import { API_URL } from '../config'
-import {MapContainer, TileLayer, Marker, Popup} from  'react-leaflet'
-import L from  'leaflet';
-import { Link } from 'react-router-dom';
-import {UserContext} from '../context/app.context'
-import {useContext} from "react"
-import { Box } from '@mui/system';
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+// import Container from '@mui/material/Container';
 
-import  'leaflet/dist/leaflet.css'
-const pinLogo = new L.Icon({
-	iconUrl: '/pin.png',
-	iconSize: [40, 40],
-});
+//same as above and you can write is all on one line
+import {Container} from "@mui/material"
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {Link} from 'react-router-dom'
+import axios from 'axios';
+import { API_URL } from '../config';
+import { useNavigate } from 'react-router-dom';
+import { useContext} from "react";
+import { UserContext } from "../context/app.context";
 
+
+const theme = createTheme();
 
 function Profile() {
-    let {user} = useContext(UserContext)
 
-    const [data, setData] = useState([])
-    useEffect(() => {
-        const getData = async () => {
-           // Fetching info for a single todo  
-           let response = await axios.get(`${API_URL}/profile`, {withCredentials: true})
-           setData(response.data)
+    
+    let {user, setUser} = useContext(UserContext)
 
+
+    const {error} = useContext(UserContext)
+   
+
+    const handleEditProfile = async (event) => {
+        event.preventDefault()
+        let formData = new FormData()
+	        formData.append('imageUrl', event.target.image.files[0])
+	        //uploading the image to cloudinary first
+	        let imgResponse = await axios.post(`${API_URL}/upload`, formData)
+        let newUser = {
+            username: event.target.username.value,
+            email: event.target.email.value,
+            password: event.target.password.value,
+            image: imgResponse.data.image 
         }
-        getData()
-    }, [])
-
-
-    const position = [51.505, -0.09]
-    function calculatePosition(lat, lon){
-        let position = [lat, lon]
-        return position 
+        
+        let response = await axios.patch(`${API_URL}/edit`, newUser, {withCredentials: true})
+        setUser(response.data)
+        
+        // console.log(user)
     }
 
-
-    if (!user) {
-        return <p>Loading..</p>
+    if (!user){
+        return <p>loadong...</p>
     }
+
+    console.log(user)
 
     return (
-        <div style={{backgroundColor: "#F8F7F3"}}>
-        <Box sx={{ 
-                display: 'flex',
-                margin: "20px",
-                height: "100vh",
-                justifyContent: "space-evenly",
-                alignContent: 'center',
-                aligntItems: "center",
-                textAlign: "center",
-                padding: "15px",
-                margin: "15px"
-                
-            }} >
-            <div>
-                <h1>Profile</h1>
-                <img style={{width: '200px', height: '200px', borderRadius:"50%"}} src={user.image} alt="userImg"></img>
-                <p style={{marginTop: "50px", fontSize: "50px"}}>{user.username}</p>
-            </div>
-
-            <div>
-            <h1>Places vistited</h1>
-            <MapContainer  
-			style={{width: '500px', height: '330px'}} 
-            zoom={1}  
-            center={position}
-			scrollWheelZoom={false}>
-            
-			<TileLayer
-				attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-			/>
-                    {
-                    data.map((elem)=> {
-                        return (
-                            <Marker icon={pinLogo} position={calculatePosition(elem.lat, elem.lon)}>
-				            <Popup>
-                            Click on me <br/>
-					<Link to={`/${elem.country}/${elem.city}/${elem.lat}/${elem.lon}/details`}>{elem.city}</Link>
-				</Popup>
-			</Marker>
-                        )
-                    })
-                }
-
-		</MapContainer>
-        </div>
+        <div>
+            <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs" style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            Edit Profile {user.username}
+          </Typography>
+          <Box component="form" onSubmit={handleEditProfile} noValidate sx={{ mt: 1 }}>
+            <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoFocus
+                // defaultValue={user.username}
+                helperText={error ? error : ""}
+                error={error ? true: false}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              helperText={error ? error : ""}
+              error={error ? true: false}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              helperText={error ? error : ""}
+              error={error ? true: false}
+            />
+            <TextField
+              margin="normal"
+              fullWidth
+              name="image"
+              label="Profile Image"
+              type="file"
+              id="image"
+              accept="image/png, image/jpg" 
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Edit
+            </Button>
+          </Box>
         </Box>
+      </Container>
+    </ThemeProvider>
         </div>
     )
 }

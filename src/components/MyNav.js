@@ -17,8 +17,9 @@ return (
                 <Link  style={{marginLeft: '10px', color:"white", textDecoration:"none"}}  to="/">Home</Link>
 				{user ? (
                     <>
-                    <Link  style={{marginLeft: '10px', color:"white", textDecoration:"none"}}  to="/profile">profile</Link>
-					<Button onClick={onLogout} variant="text">Logout</Button>
+                    <Link  style={{marginLeft: '10px', color:"white", textDecoration:"none"}}  to="/map">Map</Link>
+                    <Link  style={{marginLeft: '10px', color:"white", textDecoration:"none"}}  to="/profile">Profile</Link>
+					<Link onClick={onLogout} to="/signin" style={{marginLeft: '10px', color:"white", textDecoration:"none"}} >Logout</Link>
                     </>
 				) :
 				(

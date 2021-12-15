@@ -10,21 +10,22 @@ import axios from "axios";
 import Search from "./components/Search";
 import Country from "./components/Country";
 import AddWord from "./components/AddWord";
-import Profile from "./components/Profile";
+import Map from "./components/Map";
 import Details from "./components/Details"
 import EditWord from "./components/EditWord";
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Profile from "./components/Profile";
+
 
 
 function App() {
 
   useContext(UserContext)
   const {user, setUser, error, setError} = useContext(UserContext)
+  const [countryError, setCountryError] = useState(null) 
 
   const [country, setCountry] = useState(null)
   const [city, setCity] = useState(null)
-  const [lat, setLat] = useState("")
-  const [lon, setLon] = useState("")
+  const [data, setData] = useState(null)
  
   // setting it to true so that we can show a loading screen and make the user wait until this api finsihes
   const [fetchingUser, setFetchingUser] = useState(true)
@@ -92,31 +93,54 @@ const handleSearch = async (event) => {
   let country = event.target.country.value
   let city = event.target.city.value
 
-  let response = await axios.get(`https://nominatim.openstreetmap.org/search/${city}?format=json&addressdetails=1&limit=1&polygon_svg=1`)
-  console.log("response", response.data)
-  let data = response.data[0]
+  let destination = {}
+ 
 
-  let destination = {
-    country: event.target.country.value,
-    city: event.target.city.value,
-    lat: data.lat,
-    lon: data.lon,
-  }
-
-  try {
-    let try1 = await axios.post(`${API_URL}/country`, destination, {withCredentials: true})
-    console.log(try1)
-  }
-  catch (err){
-    console.log("failed")
-    }
   
+      let responseCountry = await axios.get(`https://countriesnow.space/api/v0.1/countries`)
+        setData(responseCountry.data.data)
+  
+            let countryinfo = responseCountry.data.data.filter((elem)=> {
+              return elem.country == country
+            })
+
+      
+        if(countryinfo.length == 0){
+          setCountryError("country or city does not exist")
+        }
+        else {
+         
+          if(countryinfo[0].cities.includes(city)){
+  
+            try {
+            let response = await axios.get(`https://nominatim.openstreetmap.org/search/${city}?format=json&addressdetails=1&limit=1&polygon_svg=1`)
+            let data = response.data[0]
+          
+            destination = {
+              country: event.target.country.value,
+              city: event.target.city.value,
+              lat: data.lat,
+              lon: data.lon,
+              
+              }
+              let response2 = await axios.post(`${API_URL}/country`, destination, {withCredentials: true})
+              navigate(`${country}/${city}/${data.lat}/${data.lon}`)
+            }
+            catch(err){
+              setCountryError(err.response.data.error)
+            }
+    
+          }  
+          else {
+            setCountryError("Enter an existing country and city combination")
+          
+        }
+        }
+
+    
+      }
 
 
-  navigate(`${country}/${city}/${data.lat}/${data.lon}`)
-  // console.log("WORKED", lat, lon)
-
-}
 
 const handleSubmit = async (event) => {
   event.preventDefault()
@@ -129,17 +153,18 @@ const handleSubmit = async (event) => {
   }
 
   return (
-    <div className="page" style={{backgroundColor: "#F8F7F3"}}>
+    <div className="page" style={{backgroundColor: "#F8F7F3", height: "100vh"}}>
 
       <MyNav onLogout={handleLogout} user={user}/>
       <Routes>
-          <Route path="/" element={<Search btnSearch={handleSearch} user={user}/> } />
+          <Route path="/" element={<Search btnSearch={handleSearch} user={user} countryError={countryError}/> } />
           <Route  path="/signin" element={<SignIn btnSignIn={handleSigIn}/>}/>
           <Route  path="/signup" element={<SignUp />}/>
           <Route path="/:country/:city/:lat/:lon" element={<Country city={city} country={country}/>} />
           <Route path="/:country/:city/:lat/:lon/list" element={<AddWord btnSubmit={handleSubmit} />}/>
-          <Route path="/profile" element={<Profile />}/>
+          <Route path="/map" element={<Map />}/>
           <Route path="/:country/:city/:lat/:lon/details" element={<Details />}/>
+          <Route path="/profile" element={<Profile />}/>
           <Route path="/:country/:city/:lat/:lon/edit" element={<EditWord />}/>
       </Routes>
 

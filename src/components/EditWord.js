@@ -15,6 +15,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import { v4 as uuidv4 } from 'uuid';
 import {useNavigate } from 'react-router-dom'
+import EditIcon from '@material-ui/icons/Edit'
 
 
 
@@ -36,7 +37,7 @@ function EditWord() {
     const navigate = useNavigate()
 
     const classes = useStyles()
-    let {city} = useParams()
+    let {country, city, lat, lon} = useParams()
     let [data, setData] = useState(null)
 
  useEffect(() => {
@@ -94,7 +95,7 @@ function EditWord() {
                 console.log("failed")
                 }
 
-            navigate("/profile")
+            navigate(`/${country}/${city}/${lat}/${lon}/details`)
     
         }
 
@@ -111,10 +112,13 @@ function EditWord() {
         return <p>Loading ...</p>
     }
 
+    console.log(data)
     return (
-        <Container>
+        <Container style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
         <form className={classes.root}  onSubmit={handleSubmit}>
             {
+                
+                !data.length == 0 ? (
                 data.map((elem)=> {
                     
                     return ( 
@@ -140,20 +144,31 @@ function EditWord() {
                     <IconButton
                     onClick={handleAddFields}
                     >
-                    
-                        <AddIcon />
+                    <AddIcon />
                     </IconButton>
-                        </div>     
+                    
+                    
+                        </div>   
+                      
 
                     )
                 })
+                ) :
+                (
+                    <div>
+                    <p> no words yet? </p>
+                    <Link to={`/${country}/${city}/${lat}/${lon}/list`}>Add words to your list</Link>
+                    </div>
+                )
             }
             <Button
                     className={classes.button}
                     variant="contained" 
                     color="primary" 
                     type="submit" 
+                    endIcon={<EditIcon />}
                     >Edit</Button>
+                    <Link to={`/https://translate.google.com/`} >Forgot the translation? click here</Link>
         </form>
         </Container>
     )

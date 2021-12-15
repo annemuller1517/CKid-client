@@ -46,7 +46,7 @@ function SignUp(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
         <CssBaseline />
         <Box
           sx={{
