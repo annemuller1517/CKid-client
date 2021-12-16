@@ -270,6 +270,7 @@ function Random() {
     ];
 
 
+    let key = process.env.REACT_APP_CLIENT_ID
     useEffect(() => {
 
         const getData = async () => {
@@ -277,7 +278,7 @@ function Random() {
           let country = countryList[Math.floor(Math.random() * countryList.length)]
           setRandomCountry(country)
           console.log(country)
-          let responsePhotos = await axios.get(`https://api.unsplash.com/search/photos?page=1&query=${country}&client_id=wk3uZwVPHSxmWraP3Opq_Tg5qfuSou6Cfneha-TmQvs`)
+          let responsePhotos = await axios.get(`https://api.unsplash.com/search/photos?page=1&query=${country}&client_id=${key}`)
           setPhoto(responsePhotos.data.results)
           console.log(responsePhotos.data.results)
         }
