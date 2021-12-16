@@ -43,7 +43,7 @@ function Map() {
     }
 
     return (
-        <div style={{ backgroundImage:"worldmap.png"}}>
+        <div style={{ backgroundColor:"#39FF14"}}>
         <Box sx={{ 
                 display: 'flex',
                 marginTop:"30px",

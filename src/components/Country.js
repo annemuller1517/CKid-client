@@ -51,7 +51,7 @@ function Country(props) {
       }
 
     return (
-        <div className="countryInfo" style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
+        <div className="countryInfo">
         <h1 style={{textAlign: "center", marginTop:"30px"}}>{cityData.name}</h1>
             <Box sx={{ 
                 display: 'flex',
@@ -67,7 +67,7 @@ function Country(props) {
                         
                         
                         <div>
-                            <Card sx={{ maxWidth: 345, margin: "20px"}}>
+                            <Card sx={{ maxWidth: 345, margin: "20px", backgroundColor: "rgb(255,255,255, 0.7)"}}>
                             <h3 style={{textAlign: "center"}}>{elem.name.official}</h3>
                                 <CardMedia
                                     component="img"
@@ -110,7 +110,7 @@ function Country(props) {
                        
                         
                        
-                        <Card sx={{ maxWidth: 345, margin: "20px", height:"550px" }}>
+                        <Card sx={{ maxWidth: 345, margin: "20px", height:"550px", backgroundColor: "rgb(255,255,255, 0.7)" }}>
                         <h3 style={{textAlign: "center"}}>Weather Of Today</h3>
                         
                                 <CardMedia
@@ -147,7 +147,7 @@ function Country(props) {
 
        
         
-                            <Card sx={{ width: 345, margin: "20px", maxWidth:345}}>
+                            <Card sx={{ margin: "20px", backgroundColor: "rgb(255,255,255, 0.7)"}}>
                             <h3 style={{textAlign: "center"}}>Start Learning</h3>
                                 <CardContent sx={{ paddingBottom: "20px"}}>
                                     <Typography gutterBottom variant="h5" component="div">

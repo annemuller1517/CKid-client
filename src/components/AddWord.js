@@ -86,11 +86,11 @@ function AddWord(props) {
 
     return (
         <Container style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
-            <h1>Add new word</h1>
-            <form className={classes.root} onSubmit={handleSubmit}>
+            <h1 style={{textAlign:"center", marginTop:"40px"}}>Add words to your list</h1>
+            <form style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", marginTop:"10%"}} className={classes.root} onSubmit={handleSubmit}>
             {   
                 inputField.map((inputField) => (
-                    <div key={inputField.id}>
+                    <div key={inputField.id} style={{backgroundColor:"rgb(255,255,255, 0.4)", outline:"1px solid gray"}}>
                     <TextField 
                     name="word"
                     label="Input Word"
@@ -128,8 +128,9 @@ function AddWord(props) {
                     type="submit" 
                     endIcon={<SendIcon />}
                     onClick={handleSubmit}
+                    style={{marginTop: "20px"}}
                     >Send</Button>
-                    <Link to={`/https://translate.google.com/`} >Forgot the translation? click here</Link>
+                    <Link to={`/https://translate.google.com/`} style={{marginTop:"20px"}}>Forgot the translation? Click here</Link>
             </form>
         </Container>
     )

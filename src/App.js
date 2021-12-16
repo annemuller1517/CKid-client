@@ -14,6 +14,7 @@ import Map from "./components/Map";
 import Details from "./components/Details"
 import EditWord from "./components/EditWord";
 import Profile from "./components/Profile";
+import Random from "./components/Random";
 
 
 
@@ -88,6 +89,12 @@ const handleLogout = async () => {
 }
 
 const handleSearch = async (event) => {
+
+  if (!user){
+    navigate("/signin")
+  }
+
+
   event.preventDefault()
  
   let country = event.target.country.value
@@ -153,7 +160,7 @@ const handleSubmit = async (event) => {
   }
 
   return (
-    <div className="page" style={{backgroundColor: "#F8F7F3", height: "100vh"}}>
+    <div className="page" style={{backgroundImage: `url("map.jpg")`, height: "100vh"}}>
 
       <MyNav onLogout={handleLogout} user={user}/>
       <Routes>
@@ -166,7 +173,8 @@ const handleSubmit = async (event) => {
           <Route path="/:country/:city/:lat/:lon/details" element={<Details />}/>
           <Route path="/profile" element={<Profile />}/>
           <Route path="/:country/:city/:lat/:lon/edit" element={<EditWord />}/>
-      </Routes>
+          <Route path="/random" element={<Random />}/>
+       </Routes>
 
     </div>
   );

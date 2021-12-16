@@ -13,7 +13,7 @@ function Details() {
     const [data, setData] = useState([])
     const [words, setwords] = useState(null)
     const [wordCard, setwordCard] = useState(true)
-
+  
 
     let {country, city, lat, lon} = useParams()
     console.log(country)
@@ -32,10 +32,17 @@ function Details() {
     }, [])
 
 
-
     function handleClick(){
-        setwordCard(!wordCard)
+        setTimeout(() => {
+            setwordCard(true)
+        }, 3000)
+        setwordCard(false)
+        
+        
+    
     }
+
+   
 
     if (!words){
      return <p>loading...</p>
@@ -43,7 +50,9 @@ function Details() {
 
     return (
         <Container >
+        <h1>click on the words to see the translation</h1>
         <div style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
+        <div style={{display: "grid", gridTemplateColumns:"repeat(auto-fit, minmax(200px, 1fr))", gridTemplateRows:"repeat(3, 100px)", gridGap:"30px", marginTop:"40px"}}>
 
         {
             !words.length == 0 ? (
@@ -55,14 +64,14 @@ function Details() {
                     <Box onClick={handleClick}
                     sx={{
                         padding: "15px",
-                        width: "fit-content",
-                        backgroundColor: 'white',
-                        fontSize: 24, 
+                        margin:"20px",
+                        width: "200px",
+                        backgroundColor: "white",
+                        fontSize: 20, 
                         fontWeight: 'medium',
                         textAlign: "center",
-                        margin:"20px",
                         '&:hover': {
-                        backgroundColor: 'grey',
+                        backgroundColor:"white",
                         opacity: [0.9, 0.8, 0.7],
                         
                     },
@@ -77,18 +86,16 @@ function Details() {
                 <div>
                     <p> no words yet? </p>
                     <Link to={`/${country}/${city}/${lat}/${lon}/list`}>Add words to your list</Link>
-                    </div>  
+                </div>  
             )
         }
-            
-        <p style ={{textAlign:"center", alignItems:"end"}}>
-        <Link style={{textDecoration:"none", fontSize:"30px", backgroundColor:"white", padding:"20px", border:"1px solid black", alignItems:"flex-end"}} to={`/${country}/${city}/${lat}/${lon}/edit`}
+        </div>
+        <div style={{display:"flex", justifyContent: "center"}}>
+        <Link style={{alpha: "0.9", textDecoration:"none", fontSize:"24px", backgroundColor:"white", padding:"20px", alignItems:"flex-end", margin:"15px", color:"black"}} to={`/${country}/${city}/${lat}/${lon}/edit`}
         >Edit words</Link>
-        </p>
-        <p style ={{textAlign:"center", alignItems:"end"}}>
-        <Link style={{textDecoration:"none", fontSize:"30px", backgroundColor:"white", padding:"20px", border:"1px solid black", alignItems:"flex-end"}} to={`/${country}/${city}/${lat}/${lon}`}
+        <Link style={{textDecoration:"none", fontSize:"24px", backgroundColor:"white", padding:"20px", alignItems:"flex-end", margin:"15px", color:"black"}} to={`/${country}/${city}/${lat}/${lon}`}
         >Go back to country info</Link>
-        </p>
+        </div>
         </div>
         </Container>
     )

@@ -55,9 +55,9 @@ function Profile() {
     console.log(user)
 
     return (
-        <div>
+        <div style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
             <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs" style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
+      <Container component="main" maxWidth="xs" >
         <CssBaseline />
         <Box
           sx={{

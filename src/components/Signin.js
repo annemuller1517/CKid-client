@@ -20,7 +20,7 @@ function SignIn(props) {
     const {error} = useContext(UserContext)
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs" style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
+      <Container component="main" maxWidth="xs" style={{backgroundColor: "rgb(255,255,255, 0.7)", height:"fit-content"}}>
         <CssBaseline />
         <Box
           sx={{
@@ -68,7 +68,7 @@ function SignIn(props) {
             </Button>
             <Grid container>
               <Grid item>
-                <Link to="/signup" >
+                <Link to="/signup" style={{marginLeft:"70px"}}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

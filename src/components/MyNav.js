@@ -15,6 +15,7 @@ return (
 		<Navbar.Collapse  id="basic-navbar-nav">
 			<Nav  className="mr-auto">
                 <Link  style={{marginLeft: '10px', color:"white", textDecoration:"none"}}  to="/">Home</Link>
+                <Link  style={{marginLeft: '10px', color:"white", textDecoration:"none"}}  to="/random">Don't know where to go?</Link>
 				{user ? (
                     <>
                     <Link  style={{marginLeft: '10px', color:"white", textDecoration:"none"}}  to="/map">Map</Link>

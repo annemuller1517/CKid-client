@@ -16,21 +16,16 @@ function Search(props) {
 
     return (
 
-        <div style={{backgroundColor: "#F8F7F3", height: "100vh"}}>
-        <h1 style={{textAlign:"center", marginTop: "30px", fontFamily:"bradley hand"}}>WHERE ARE WE GOING?</h1>
+        <div style={{ height: "100vh", marginTop:"100px"}}>
+        <h1 style={{marginLeft:"30px", padding:"10px", marginTop: "30px", fontFamily:"bradley hand", backgroundColor:"rgb(255,255,255, 0.7)", height:"fit-content", width:"fit-content"}}>Pick your next destination</h1>
         <Box sx={{ 
-                display: 'flex',
                 margin: "20px",
                 height: "100vh",
-                justifyContent: "space-evenly",
-                alignContent: 'center',
-                aligntItems: "center",
-                textAlign: "center",
                 padding: "15px",
-                
             }}>
-    
-        <form onSubmit={btnSearch} style={{marginTop: "250px"}}>
+         <div style={{display:"flex"}}>
+        <img src="arrow.png" alt="arrow" height="200px" style={{marginLeft:"250px", marginTop:"20px"}}></img>
+        <form onSubmit={btnSearch} style={{marginLeft:"50px", marginTop: "100px", backgroundColor:"rgb(255,255,255, 0.7)", height:"fit-content"}}>
         <TextField
             hiddenLabel
             id="filled-hidden-label-normal"
@@ -52,17 +47,17 @@ function Search(props) {
             error={countryError ? true: false}
             />
             <div>
-            <Button variant="text" type="submit" style={{fontSize: "50px", fontFamily:"bradley hand", borderRadius: "20%"}}> Let's Go<img src="/pin2.png" alt="pin" height="50px"></img>
+            <Button variant="text" type="submit" style={{marginLeft:"40px",fontSize: "50px", fontFamily:"bradley hand", borderRadius: "20%", color:"black"}}> Let's Go<img src="/pin2.png" alt="pin" height="50px"></img>
             </Button>
             </div>
             
             </form>
             <div>
-            <img src="/globe.gif" alt="globe" style={{maxHeight: "800px"}}></img>
+            {/* <img src="/globe.gif" alt="globe" style={{maxHeight: "800px"}}></img> */}
             </div>
-
+            </div>  
             </Box>
-
+             
         </div>
     )
 }
