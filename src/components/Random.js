@@ -295,7 +295,7 @@ function Random() {
     }
 
     return (
-            <div style={{marginTop: "-208.5px", marginLeft: "-375px", top: "35%", left: "40%", display: "block", position: "absolute",backgroundColor: "#F8F7F3", height:"600px"}}>
+            <div style={{marginTop: "-208.5px", marginLeft: "-375px", top: "35%", left: "40%", display: "block", position: "absolute",backgroundColor: "rgb(255,255,255, 0.7)", height:"600px"}}>
             <h1 style={{textAlign:"center", display: "block", marginBottom:"5px"}}>Don't know where to go?</h1>
             <div style={{textAlign:"center", marginBottom:"15px"}}>
             <Link style={{ color:"black", fontSize:"12px"}} to="/random" onClick={refreshPage}>Get another random country</Link>

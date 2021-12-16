@@ -163,7 +163,7 @@ const handleSubmit = async (event) => {
     <div className="page" style={{backgroundImage: `url("map.jpg")`, height: "100vh"}}>
 
       <MyNav onLogout={handleLogout} user={user}/>
-      <Routes>
+      <Routes style={{backgroundImage: `url("map.jpg")`, height: "100vh"}}>
           <Route path="/" element={<Search btnSearch={handleSearch} user={user} countryError={countryError}/> } />
           <Route  path="/signin" element={<SignIn btnSignIn={handleSigIn}/>}/>
           <Route  path="/signup" element={<SignUp />}/>

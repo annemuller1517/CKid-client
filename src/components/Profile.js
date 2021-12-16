@@ -55,9 +55,15 @@ function Profile() {
     console.log(user)
 
     return (
-        <div style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
+        <div style={{marginTop:"20px"}}>
+        
             <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs" >
+            <div style={{textAlign:"center", display:"block"}}>
+            <img src={user.image} style={{height:"150px", borderRadius:"50%"}}></img>
+            </div>
+            
+      <Container component="main" maxWidth="xs" style={{backgroundColor: "rgb(255,255,255, 0.7)"}} >
+      
         <CssBaseline />
         <Box
           sx={{
@@ -67,7 +73,7 @@ function Profile() {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" style={{marginTop:"10px"}}>
             Edit Profile {user.username}
           </Typography>
           <Box component="form" onSubmit={handleEditProfile} noValidate sx={{ mt: 1 }}>

@@ -43,7 +43,7 @@ function Map() {
     }
 
     return (
-        <div style={{ backgroundColor:"#39FF14"}}>
+        <div>
         <Box sx={{ 
                 display: 'flex',
                 marginTop:"30px",
@@ -57,7 +57,7 @@ function Map() {
             }} >
 
             <div>
-            <h1 style={{marginTop:"10px", padding:"20px"}}>Places vistited by {user.username}</h1>
+            <h1 style={{marginTop:"10px", padding:"20px", backgroundColor: "rgb(255,255,255, 0.7)"}}>Places vistited by {user.username}</h1>
             <MapContainer  
 			style={{width: '900px', height: '450px'}} 
             zoom={1.5}  

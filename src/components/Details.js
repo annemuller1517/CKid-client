@@ -50,8 +50,8 @@ function Details() {
 
     return (
         <Container >
-        <h1>click on the words to see the translation</h1>
-        <div style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
+        <h1 style={{textAlign:"center"}}>click on the words to see the translation</h1>
+        <div style={{backgroundColor: "rgb(255,255,255, 0.7)"}}>
         <div style={{display: "grid", gridTemplateColumns:"repeat(auto-fit, minmax(200px, 1fr))", gridTemplateRows:"repeat(3, 100px)", gridGap:"30px", marginTop:"40px"}}>
 
         {
@@ -71,8 +71,8 @@ function Details() {
                         fontWeight: 'medium',
                         textAlign: "center",
                         '&:hover': {
-                        backgroundColor:"white",
-                        opacity: [0.9, 0.8, 0.7],
+                        backgroundColor:"lightgray"
+                        
                         
                     },
                         }}

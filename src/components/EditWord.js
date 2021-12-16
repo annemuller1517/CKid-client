@@ -114,7 +114,9 @@ function EditWord() {
 
     console.log(data)
     return (
-        <Container style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
+        <div style={{backgroundColor: "rgb(255,255,255, 0.7)", height:"fit-content", width:"fit-content", position:"absolute", top:"15%", left:"35%", marginTop:"-50px", marginLeft:"-50px"}}>
+        <Container>
+        <h1 style={{textAlign:"center"}}>Edit your words here</h1>
         <form className={classes.root}  onSubmit={handleSubmit}>
             {
                 
@@ -171,6 +173,7 @@ function EditWord() {
                     <Link to={`/https://translate.google.com/`} >Forgot the translation? click here</Link>
         </form>
         </Container>
+        </div>
     )
 }
 

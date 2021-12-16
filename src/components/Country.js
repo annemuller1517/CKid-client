@@ -67,7 +67,7 @@ function Country(props) {
                         
                         
                         <div>
-                            <Card sx={{ maxWidth: 345, margin: "20px", backgroundColor: "rgb(255,255,255, 0.7)"}}>
+                            <Card sx={{ maxWidth: 345, margin: "20px", backgroundColor: "rgb(255,255,255, 0.7)", }}>
                             <h3 style={{textAlign: "center"}}>{elem.name.official}</h3>
                                 <CardMedia
                                     component="img"
@@ -89,16 +89,13 @@ function Country(props) {
                                     <Typography variant="body2" color="text.secondary" sx={{ paddingBottom: "5px" }}>
                                     <b>Population</b> {elem.population}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" sx={{ paddingBottom: "5px" }}>
+                                    <Typography variant="body2" color="text.secondary" sx={{ paddingBottom: "13px" }}>
                                     <b>Continent</b> {elem.continents}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                    <b>Currency</b> 
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Link size="small" to={`/${elem.maps.googleMaps}`} target="_blank" rel="noreferrer" >GoogleMaps</Link>
-                                    <Link size="small" to={`/${elem.maps.openStreetMaps}`} target="_blank" rel="noreferrer" >OpenStreetMaps</Link>
+                                    <Link size="small" target="_blank" to={`${elem.maps.googleMaps}`} rel="noreferrer" >GoogleMaps</Link>
+                                    <Link size="small" target="_blank" to={`${elem.maps.openStreetMaps}`}  rel="noreferrer" >OpenStreetMaps</Link>
                                 </CardActions>
                             </Card>
                         </div>
@@ -110,14 +107,14 @@ function Country(props) {
                        
                         
                        
-                        <Card sx={{ maxWidth: 345, margin: "20px", height:"550px", backgroundColor: "rgb(255,255,255, 0.7)" }}>
+                        <Card sx={{ height:"fit-content", margin: "20px", height:"fit-content", backgroundColor: "rgb(255,255,255, 0.7)" }}>
                         <h3 style={{textAlign: "center"}}>Weather Of Today</h3>
                         
                                 <CardMedia
                                     component="img"
                                     alt="flag"
-                                    maxHeight="140"
-                                    maxWidth="300"
+                                    height="190"
+                                    width="450"
                                     image="https://media.wired.co.uk/photos/606dba1c9a15f73a597a2aa1/master/w_1600%2Cc_limit/weather.jpg"
                                 />
                                 <CardContent>
@@ -136,7 +133,7 @@ function Country(props) {
                                     <Typography variant="body2" color="text.secondary" sx={{ paddingBottom: "5px" }}>
                                     <b>Wind</b> {cityData.wind.speed} meter/sec
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" sx={{ paddingBottom: "25px" }}>
+                                    <Typography variant="body2" color="text.secondary" sx={{ paddingBottom: "10px" }}>
                                     <b>Cloudiness</b> {cityData.clouds.all} %
                                     </Typography>
                                 </CardContent>
@@ -165,10 +162,10 @@ function Country(props) {
                                     <Typography gutterBottom variant="h5" component="div">
                                     <img src="/talking.png" alt="idea" height="40px"></img>  Apply
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" sx={{ paddingBottom: "80px" }}>
+                                    <Typography variant="body2" color="text.secondary" sx={{ paddingBottom: "40px" }}>
                                     Practise your learnings in real-life.
                                     </Typography>
-                                    <Link to={`/${country}/${city}/${lat}/${lon}/list`} style={{textAlign: "center", color:"black", textDecoration:"none"}} > Add words to list</Link>
+                                    <Link to={`/${country}/${city}/${lat}/${lon}/list`} style={{alignItem: "center", color:"black", textDecoration:"none"}} > Add words to list</Link>
                                 </CardContent>
                                 <CardActions>
                                 </CardActions>
