@@ -16,8 +16,8 @@ function Search(props) {
 
     return (
 
-        <div style={{ height: "100vh", marginTop:"100px"}}>
-        <h1 style={{marginLeft:"30px", padding:"10px", marginTop: "30px", fontFamily:"bradley hand", backgroundColor:"rgb(255,255,255, 0.7)", height:"fit-content", width:"fit-content"}}>Pick your next destination</h1>
+        <div style={{ height: "100vh", marginTop:"100px", fontFamily:"zantrokeregular"}}>
+        <h1 style={{marginLeft:"30px", padding:"10px", marginTop: "30px", backgroundColor:"rgb(255,255,255, 0.7)", height:"fit-content", width:"fit-content"}}>Pick your next destination</h1>
         <Box sx={{ 
                 margin: "20px",
                 height: "100vh",

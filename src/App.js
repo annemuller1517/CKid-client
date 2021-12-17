@@ -160,7 +160,7 @@ const handleSubmit = async (event) => {
   }
 
   return (
-    <div className="page" style={{backgroundImage: `url("map.jpg")`, height: "100vh"}}>
+    <div className="page" style={{backgroundImage: `url("map.jpg")`, height: "100vh", fontFamily:"zantrokeregular"}}>
 
       <MyNav onLogout={handleLogout} user={user}/>
       <Routes style={{backgroundImage: `url("map.jpg")`, height: "100vh"}}>
