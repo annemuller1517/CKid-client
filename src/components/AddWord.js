@@ -85,7 +85,7 @@ function AddWord(props) {
     
 
     return (
-        <Container style={{backgroundColor: "#F8F7F3", height:"100vh"}}>
+        <Container style={{backgroundColor: "rgb(255,255,255, 0.7)", height:"fit-content", width:"fit-content", position:"absolute", top:"15%", left:"35%", marginTop:"-50px", marginLeft:"-50px"}}>
             <h1 style={{textAlign:"center", marginTop:"40px"}}>Add words to your list</h1>
             <form style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", marginTop:"10%"}} className={classes.root} onSubmit={handleSubmit}>
             {   
